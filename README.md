@@ -20,7 +20,7 @@
  ChangeSettings('path')
  ```
  
- In this example you change path to folder, where you contain your databases and users(except super-user)
+ In this example you change path to folder, where you contain all your databases and users(except super-user)
  
  <a name="install"></a>
  
