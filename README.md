@@ -30,7 +30,7 @@
  pip install UsefulDB
  ```
  
- At this moment, you don't can use this way, because he don't work correctly. You can download ZIP-archive and copy files into you folder, create new file .py and launch him.
+ At this moment, you don't can use this way, because he don't work correctly. You can download ZIP-archive and copy files into you folder, after create new file .py, import package and launch him.
  
  For import UsefulDB, use:
  ```python
