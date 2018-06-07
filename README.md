@@ -12,7 +12,7 @@
  create.user.params(user='Admin', password='VeryDifficultPassword123', root=True)
  ```
  
- This example create a super-user. If you alreadu have a super-user, you get more functionality of UsefulDB.
+ This example create a super-user. If you already have a super-user, you get more functionality of UsefulDB.
  
  Also you can open another file: settings.py
  
