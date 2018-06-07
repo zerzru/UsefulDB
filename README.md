@@ -12,7 +12,7 @@
  create.user.params(user='Admin', password='VeryDifficultPassword123', root=True)
  ```
  
- This example create a super-user. If you have a super-user, you get more functionality of UsefulDB.
+ This example create a super-user. If you alreadu have a super-user, you get more functionality of UsefulDB.
  
  Also you can open another file: settings.py
  
@@ -51,9 +51,9 @@
  
  Version Beta: <br>
  -file settings and command panel; <br>
- -full rewrite code with PEP8; <br>
+ -Using PEP8; <br>
  -more new features; <br>
- -added bugs; <br>
+ -added new bugs; <br>
  
  Version 1.0.3: <br>
  -some bug fixes; <br>
@@ -64,7 +64,7 @@
  
  Version 1.0.1: <br>
  -some bug fixes; <br>
- -added documentation <br>
+ -Release documentation <br>
  
  Version 1.0.0: <br>
  -basic work
@@ -74,4 +74,4 @@
 # Contact
 
 elisey.sharow@yandex.ru - email <br>
-http://scgofficial.esy.es/UsefulDB/ - old documentation(new features is not supported, coming soon I will did this)
+http://scgofficial.esy.es/UsefulDB/ - old documentation(new features is not supported, coming soon I will did him)
