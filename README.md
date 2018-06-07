@@ -6,7 +6,7 @@
  </h2>
  
  <a name="example"></a>
- # Example
+ # Examples
  
  ```python
  create.user.params(user='Admin', password='VeryDifficultPassword123', root=True)
@@ -22,7 +22,9 @@
  
  This example change path to folder, where you contain your databases and users(except super-user)
  
- <a name="install">Installing</a>
+ <a name="install"></a>
+ 
+ # Installing
  
  ```cmd
  pip install UsefulDB
