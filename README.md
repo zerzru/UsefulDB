@@ -7,7 +7,7 @@
 		<li><a href="#education?examples">Examples</a></li>
 		<ol>
 			<li><a href="#education?examples_creating">Creating items</a></li>
-			<li><a href="#educations?examples_deleting">Deleting items</a></li>
+			<li><a href="#education?examples_deleting">Deleting items</a></li>
 		</ol>
 	</ol>
 	Main <br>
