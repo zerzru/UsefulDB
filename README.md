@@ -36,7 +36,7 @@ If you already have a database and want to learn how to manage the framework, I 
 ```python
 create.user.params(user='Test', password='12345') #creating user
 create.user.params(user='Admin', password='im_the_best_admin_with_very_hard_password') #creating a super-user for get new feature: command panel
-create.database.params(name='Test', columns=3)
+create.database.params(name='Test', columns=3) #creating database
 ```
 
 After launch this commands, in your folder(when you set settings after first framework launch) created a 2 files: user_<ID>.json and database_<NAME>.json. In root folder created 1 new file: rooted_users.json
