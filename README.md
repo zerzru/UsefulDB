@@ -1,5 +1,3 @@
-# UsefulDB
-
 # Contents
 
 <h2>
@@ -26,3 +24,12 @@
 		<li> <a href="#contact">Contact</a></li>
 	</ol>
 </h2>
+
+<a name="education?about"></a>
+<h2> About education </h2>
+<a name="education?examples"></a>
+<h2> Education examples </h2>
+<a name="education?examples_creating"></a>
+<h3>Creating items</h3>
+<a name="education?examples_deleting"></a>
+<h3>Deleting items</h3>
