@@ -1,77 +1,20 @@
 # UsefulDB
 
-<a name="top"></a>
+# Contents
+
 <h2>
-<a href="#example">Examples</a> <a href="#install">Installing</a> <a href="#literature">Literature</a> <a href="#changelog">Changelog</a> <a href="#contact">Contact</a>
- </h2>
- 
- <a name="example"></a>
- # Examples
- 
- ```python
- create.user.params(user='Admin', password='VeryDifficultPassword123', root=True)
- ```
- 
- This example create a super-user. If you already have a super-user, you get more functionality of UsefulDB.
- 
- Also you can open another file: settings.py
- 
- ```python
- ChangeSettings('path')
- ```
- 
- In this example you change path to folder, where you contain all your databases and users(except super-user)
- 
- <a name="install"></a>
- 
- # Installing
- 
- ```cmd
- pip install UsefulDB
- ```
- 
- At this moment, you don't can use this way, because he don't work correctly. You can download ZIP-archive and copy files into you folder, after create new file .py, import package and launch him.
- 
- For import UsefulDB, use:
- ```python
- from UsefulDB import *
- ```
- 
- And lets to start!
- 
- <a name="literature"></a>
- 
- # Literature
- 
- On english language translated only 1 file: codes of condition about framework. Every day I work for translated all literature and make hight-quality documentation. Just wait.
- 
- <a name="changelog"></a>
- 
- # Changelog
- 
- Version Beta: <br>
- -file settings and command panel; <br>
- -Using PEP8; <br>
- -more new features; <br>
- -added new bugs; <br>
- 
- Version 1.0.3: <br>
- -some bug fixes; <br>
- 
- Version 1.0.2: <br>
- -some bug fixes; <br>
- -new feature: your path to folder <br>
- 
- Version 1.0.1: <br>
- -some bug fixes; <br>
- -Release documentation <br>
- 
- Version 1.0.0: <br>
- -basic work
-
-<a name="contact"></a>
-
-# Contact
-
-elisey.sharow@yandex.ru - email <br>
-http://scgofficial.esy.es/UsefulDB/ - old documentation(new features is not supported, coming soon I will did him)
+Education <br>
+	1. <a hred="#education?about">About</a> <br>
+	2. <a href="#education?examples">Examples</a> <br>
+		2.1 <a href="#education?examples&creating">Creating items</a> <br>
+		2.2 <a href="#educations?examples&deleting">Deleting items</a> <br>
+Main <br>
+	1. <a href="#main?about">About</a> <br>
+	2. <a href="#main?examples">Examples</a> <br>
+		2.1 <a href="#main?examples&create_user">Creating user</a> <br>
+		2.2 <a href="#main?examples&create_database">Creating database</a> <br>
+		2.3 <a href="#main?examples&create_table">Creating table</a> <br>
+		2.4 <a href="#main?examples&deletes">Deletes</a> <br>
+	3. <a href="#changelog">Changelog</a> <br>
+	4. <a href="#contact">Contact</a>
+</h2>
