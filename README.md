@@ -3,7 +3,7 @@
 <h2>
 	Education <br>
 	<ol>
-		<li><a hred="#education?about">About</a></li>
+		<li><a href="#education?about">About</a></li>
 		<li><a href="#education?examples">Examples</a></li>
 		<ol>
 			<li><a href="#education?examples_creating">Creating items</a></li>
