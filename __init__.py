@@ -90,11 +90,11 @@ try:
                 def params(user, password, database=None, root=False):
                     if root:
                         try:
-                            with open('config.json', mode='r') as f:
+                            with open('rooted_users.json', mode='r') as f:
                                 data = json.load(f)
                             print('You already have a super-user')
                         except Exception as er:
-                            with open('config.json', mode='w') as f:
+                            with open('rooted_users.json', mode='w') as f:
                                 dict = {}
                                 if database == None:
                                     dict['user'] = user
