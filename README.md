@@ -135,6 +135,18 @@ If you send all 2 files, I can more fastly fix framework problem. Thanks.
 <a name="changelog"></a>
 # Change log
 
+Version 1.0.4 Beta[right now]:<br>
+-Rewrited code <br>
+-Using PEP8 <br>
+-New feature: settings <br>
+-New feature: logs <br>
+-New mode: trainig <br>
+-Added easter eggs <br>
+-Some bug fixes
+
+Version 1.0.3: <br>
+-Some bug fixes
+
 Version 1.0.2: <br>
 -Some bug fixes <br>
 -New feature: system of checking internet-connection <br>
