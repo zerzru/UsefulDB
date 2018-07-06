@@ -43,6 +43,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 <a name="training"></a>
+# Training
 <a name="training?about"></a>
 ## About training
 Do you already have databases and their components? You want to use this framework, but are afraid to spoil something? Or just want to understand how it works? In any case, I recommend starting with this mode. It does not connect to the Internet, it only works with local files, so you can not worry about your databases. Just go to the "Education" folder, create a new file and import the __init__ file
@@ -84,6 +85,8 @@ This command will delete table:
 delete.table.params('Test', confirm=True)
 ```
 
+<a name="main"></a>
+# Main
 <a name="main?about"></a>
 ## About main
 
@@ -106,6 +109,7 @@ And this command will create table:
 create.table.params('Test', 3) #also create.table.params(name='Test', 3) or create.table.params(name='Test', '3')
 ```
 ### Deleting
+<a name="main?examples_deleting">
 This command will delete user:
 ```python
 delete.user.params('Admin', '12345', confirm=True) #also delete.user.params(name='Admin', password='12345', confirm=True)
@@ -148,8 +152,9 @@ Version 1.0.1: <br>
 Version 1.0.0: <br>
 -Base framework work
 
+<a name="contact"></a>
 # Contact
 
-elisey.sharow@yandex.ru - main e-mail
-playofstiverz@gmail.com - second e-mail
+elisey.sharow@yandex.ru - main e-mail <br>
+playofstiverz@gmail.com - second e-mail <br>
 scg-publicmail@yandex.ru - e-mail for your errors and another issues
