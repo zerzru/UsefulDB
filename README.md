@@ -132,11 +132,6 @@ If you have bugs or another issues, please, send to mail scg-publicmail@yandex.r
 
 If you send all 2 files, I can more fastly fix framework problem. Thanks.
 
-<a name="authors"></a>
-# Authors
-
-© 2018 Elisey Sharov
-
 <a name="changelog"></a>
 # Change log
 
@@ -154,6 +149,8 @@ Version 1.0.0: <br>
 
 <a name="contact"></a>
 # Contact
+
+© 2018; Elisey Sharov
 
 elisey.sharow@yandex.ru - main e-mail <br>
 playofstiverz@gmail.com - second e-mail <br>
