@@ -20,6 +20,7 @@
                 <li><a href="#main?examples_deleting">Deleting</a></li>
             </ol>
         </ol>
+        <li><a href="#installing">Installing</a></li>
         <li><a href="#bugreport">Bug report</a></li>
         <li><a href="#authors">Authors</a></li>
         <li><a href="#changelog">Change log</a></li>
@@ -123,6 +124,15 @@ This command will delete table:
 delete.table.params('Test', confirm=True)
 ```
 
+<a name="installing"></a>
+# Installing
+
+```batch
+pip install UsefulDB
+```
+
+Installation via the PIP may not work, so for now, I recommend downloading the archive of the framework and unpacking it into the folder you need
+
 <a name="bugreport"></a>
 # Bug report
 
@@ -137,6 +147,7 @@ If you send all 2 files, I can more fastly fix framework problem. Thanks.
 
 Version 1.0.4 Beta[right now]:<br>
 -Rewrited code <br>
+-Rewrited GUI mode <br>
 -Using PEP8 <br>
 -New feature: settings <br>
 -New feature: logs <br>
