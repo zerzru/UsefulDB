@@ -1,4 +1,5 @@
 # UsefulDB
+![Travis CI](https://api.travis-ci.org/ZerZru/UsefulDB.svg?branch=master) <br> <br>
 ![project_logo](https://raw.githubusercontent.com/ZerZru/UsefulDB/master/images/logo-readme.jpg)
 
 # Contents
