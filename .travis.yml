@@ -1,1 +1,9 @@
 language: python
+
+deploy:
+  provider: pages
+  skip-cleanup: true
+  github-token: e1c919ba8dfe47afbd380bc4992ab1124fa61a92
+  keep-history: true
+  on:
+    branch: master
