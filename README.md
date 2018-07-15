@@ -1,5 +1,5 @@
 # UsefulDB
-![Travis CI](https://api.travis-ci.org/ZerZru/UsefulDB.svg?branch=master) <br> <br>
+![Travis CI](https://api.travis-ci.org/ZerZru/UsefulDB.svg?branch=master) ![Github All Releases](https://img.shields.io/github/downloads/ZerZru/UsefulDB/total.svg) ![PyPI](https://img.shields.io/pypi/v/usefuldb.svg) ![PyPI - Format](https://img.shields.io/pypi/format/UsefulDB.svg) <br> <br>
 ![project_logo](https://raw.githubusercontent.com/ZerZru/UsefulDB/master/images/logo-readme.jpg)
 
 # Contents
