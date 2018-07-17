@@ -13,119 +13,157 @@ This program is free software: you can redistribute it and/or modify
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 '''
 
+__author__ = 'Elisey Sharov' #name of UsefulDB author
+
+#importing standart packages for utility
 import os
 import json
+import time
 import shutil
-import pymysql
-import platform
 import datetime
-import webbrowser
-from tkinter import *
+import platform
+import configparser
+#importing PIP-packages
+import requests
+import bs4
+import pymysql.cursors
 
-__author__ = 'Elisey Sharov'
+VERSION = '1.0.5' #version
+work_dir = os.getcwd() #getting working directory
 
-with open('config.json', mode='r') as f:
-    data = json.load(f)
-    VERSION = data['version']
+config = configparser.ConfigParser()
+config.read('{}/config.ini'.format(work_dir), encoding='utf-8-sig')
 
-root = Tk()
-root.title('UsefulDB GUI')
-root.geometry('300x400')
+#checking availabling information in config.ini
+try:
+    with open('config.ini'.format(work_dir), mode='r') as f:
+        VERSION = config.get('main_info', 'version')
+        host = config.get('user_info', 'host')
+        db_user = config.get('user_info', 'user')
+        db_pass = config.get('user_info', 'password')
+    with open('{}\config.ini'.format(work_dir), mode='r') as f:
+        VERSION = config.get('main_info', 'version')
+        host = config.get('user_info', 'host')
+        db_user = config.get('user_info', 'user')
+        db_pass = config.get('user_info', 'password')
+except Exception as er:
+    print(er)
+    host = input('Insert your host: ')
+    db_user = input('Insert host user: ')
+    db_pass = input('Insert user password: ')
+    with open('{}\config.ini'.format(work_dir), mode='w') as f:
+        f.write('[main_info]\nversion={}\n'.format(VERSION)
+                + '[user_info]\nhost={}\nuser={}\npassword={}'.format(host, db_user, db_pass))
+    with open('config.ini', mode='w') as f:
+        f.write('[main_info]\nversion={}\n'.format(VERSION)
+                + '[user_info]\nhost={}\nuser={}\npassword={}'.format(host, db_user, db_pass))
 
-def create():
-    def create_user():
-        window = Toplevel()
-        window.title('UsefulDB GUI: create user')
-        window.geometry('300x400')
-        name_text = Label(window, text='Username:')
-        name_text.place(x=0, y=0)
-        pass_text = Label(window, text='Password:')
-        pass_text.place(x=0, y=20)
-        name_entry = Entry(window)
-        name_entry.place(x=100, y=0)
-        pass_entry = Entry(window)
-        pass_entry.place(x=100, y=20)
-        def confirm_create():
-            strd = var1.get()
-            if strd == 1:
+try: #are you have correct info of database name?
+    with open('host.json', mode='r') as f:
+        data = json.load(f)
+        db = data['database']
+except: #if not
+    answer = input('Insert the database name: ')
+    with open('host.json', mode='w') as f:
+        dict = {}
+        dict['database'] = answer
+        json.dump(dict, f)
+
+try: #try to check new version and condition of internet-connection
+    s = requests.get('http://scgofficial.esy.es/version.html')
+    b = bs4.BeautifulSoup(s.text, "html.parser")
+    p1 = b.select('.version .fw')
+    result_ver = p1[0].getText()
+    if VERSION == result_ver:
+        NET = True #you have internet-connection
+    else:
+        if VERSION == 'Beta': #you wanna to crash your PC?
+            NET = True #you have internet-connection
+            print('You have a Beta-version of UsefulDB. This version may contain more bugs and errors, than simple version')
+        elif VERSION == '1.0.0' or '1.0.1' or '1.0.2' or '1.0.3' or '1.0.4' or '1.0.4 Beta': #if you use this versions - you're a bad man
+            NET = True #you have internet-connection
+            print('You have old version of UsefulDB. Please, update the utility for get new features and bug fixes!')
+        else: #another versions is not can be
+            NET = True #you have internet-connection
+            print("Are you change the 'config.json' file?")
+except: #if you haven't internet-connection or sever have problems
+    NET = False #you haven't internet-connection
+    print("System can't check avialable of new versions. Check the internet-connection and try again")
+
+class create: #create something
+    def __init__(self, i):
+        self.Item = i
+
+    def info():
+        print('Wanna to create something? Call this class!')
+
+    class user: #create super-user
+        def __init__(self, n, p):
+            self.Name = n
+            self.Pass = p
+
+        def info():
+            print('Wanna get the acces to command panel? Create a super-user!')
+
+        def params(name, password, confirm=False): #name - username, password - pass, confirm - creation of super-user
+                                                   #give you acces to the command panel. Its panel can break something
+                                                   #please, be accurate
+            if confirm: #are you confirm creating os super-user? It can break something
                 try:
-                    with open('root.json', mode='r') as f:
+                    with open('root.json', mode='r') as f: #are you have super-user yet?
                         data = json.load(f)
-                        rName = data['user']
-                        rPass = data['pass']
-                    answer = input('You already have super-user. Do you want to rewrite it? (Y/N): ')
-                    if answer == 'Y' or 'y':
-                        with open('root.json', mode='w') as f:
-                            dict = {}
-                            dict['user'] = name_entry.get()
-                            dict['pass'] = pass_entry.get()
-                            json.dump(dict, f)
-                            window_2 = Toplevel()
-                            window_2.title('Excellent!')
-                            window_2.geometry('300x400')
-                            dhfjd = Label(window_2, text='Super-user {} succesfully created!'.format(name_entry.get()))
-                            dhfjd.pack()
-                    else:
-                        pass
-                except:
+                        user = data['user']
+                        password = data['pass']
+                        print('You already have super-user')
+                except: #if not
                     with open('root.json', mode='w') as f:
                         dict = {}
-                        dict['user'] = name_entry.get()
-                        dict['pass'] = pass_entry.get()
+                        dict['user'] = name
+                        dict['pass'] = password
                         json.dump(dict, f)
-                        window_2 = Toplevel()
-                        window_2.title('Excellent!')
-                        window_2.geometry('300x400')
-                        dhfjd = Label(window_2, text='Super-user {} succesfully created!'.format(name_entry.get()))
-                        dhfjd.pack()
-            else:
-                print('Stopping...')
+                        print('Super-user {} is created. Now you can use command panel'.format(name))
+            else: #if not
                 pass
-        def super_user_info():
-            window = Toplevel()
-            window.title('UsefulDB GUI: create user info')
-            window.geometry('300x400')
-            text = Label(window, text='Information:\nAttention! Creating a superuser gives you\nnot only access to the command panel,\nbut also the risk of breaking anything.\nBe careful when using this important feature')
-            text.pack()
-        var1 = IntVar()
-        super_user_info_button = Button(window, text='Warning', command=super_user_info)
-        super_user_info_button.place(x=0, y=50)
-        check1 = Checkbutton(window, text='I understand', variable=var1)
-        check1.place(x=0, y=80)
-        confirm = Button(window, text='Confirm', command=confirm_create)
-        confirm.place(x=0, y=110)
-    def create_table():
-        window = Toplevel()
-        window.title('UsefulDB GUI: create table')
-        window.geometry('300x400')
-        table_name_text = Label(window, text='Table name:')
-        table_name_text.place(x=0, y=0)
-        table_columns_text = Label(window, text='Table columns:')
-        table_columns_text.place(x=0, y=30)
-        table_name_entry = Entry(window)
-        table_name_entry.place(x=100, y=0)
-        table_columns_entry = Entry(window)
-        table_columns_entry.place(x=100, y=30)
-        def create_table_confirm():
-            columns = table_columns_entry.get()
-            name = table_name_entry.get()
-            columns = int(columns)
-            with open('config.json', mode='r') as f:
-                data = json.load(f)
-                host = data['host']
-                db_user = data['user']
-                db_pass = data['password']
-            try: #are you have correct info of database name?
-                with open('host.json', mode='r') as f:
-                    data = json.load(f)
-                    db = data['database']
-            except Exception as error: #if not
-                answer = input('Insert the database name: ')
-                with open('host.json', mode='w') as f:
-                    dict = {}
-                    dict['database'] = answer
-                    json.dump(dict, f)
-                raise error
+
+    class database: #create database
+        def __init__(self, n):
+            self.Name = n
+            
+        def info():
+            print('Fastly database creation')
+
+        def params(name): #name - database name
+            now = datetime.datetime.now() #time right now
+            connection = pymysql.connect(host=host,
+                                         user=db_user,
+                                         password=db_pass,
+                                         charset='utf8mb4',
+                                         cursorclass=pymysql.cursors.DictCursor
+                                         ) #connection with your host 
+            try: #trying to add new database
+                with connection.cursor() as cursor:
+                    sql = 'CREATE DATABASE `%s`;' #sql-code
+                    cursor.execute(sql, ('{}'.format(name))) #sql-code running
+                    connection.commit() #saving changes
+                with open('connection_log.txt', mode='a') as f: #info fot connection_log.txt If you have a
+                                                                #problem, you should send me that file too
+                    f.write('[{}]: SQL: {}\n'.format(now, sql))
+            except Exception as er:
+                print('Something is wrong: ', er)
+                with open('connection_log.txt', mode='a') as f:
+                    f.write('[{}]: SQL: {}\n'.format(now, sql))
+            finally:
+                connection.close() #if we don't close connection, it can doing something bad
+
+    class table: #create table in database
+        def __init__(self, n):
+            self.Name = n
+
+        def info():
+            print('Wanna create table? Call create.table.params(name, columns)!')
+
+        def params(name, columns): #name - table name, columns - count of columns
+            columns = int(columns) #if you write like '3'(must be 3), system converting str to int
             #connecting to database
             connection = pymysql.connect(host=host,
                                          user=db_user,
@@ -202,130 +240,106 @@ def create():
                 if number > columns:
                     connection.close() #if we don't close connection, it can do something bad
                     break
-        confirm = Button(window, text='Create', command=create_table_confirm)
-        confirm.place(x=0, y=60)
-    def create_database():
-        window = Toplevel()
-        window.title('UsefulDB GUI: create database')
-        window.geometry('300x400')
-        db_text = Label(window, text='Database name:')
-        db_text.place(x=0, y=0)
-        db_entry = Entry(window)
-        db_entry.place(x=100, y=0)
-        def create_db():
-            name = db_entry.get()
-            now = datetime.datetime.now() #time right now
-            with open('config.json', mode='r') as f:
-                data = json.load(f)
-                host = data['host']
-                db_user = data['user']
-                db_pass = data['password']
-            try: #are you have correct info of database name?
-                with open('host.json', mode='r') as f:
-                    data = json.load(f)
-                    db = data['database']
-            except Exception as error: #if not
-                answer = input('Insert the database name: ')
-                with open('host.json', mode='w') as f:
-                    dict = {}
-                    dict['database'] = answer
-                    json.dump(dict, f)
-                raise error
+
+class delete: #delete something
+    def __init__(self, i):
+        self.Item = i
+
+    def info():
+        print('Wanna delete something? Call this class!')
+
+    class user: #delete user
+        def __init__(self, n, p):
+            self.Name = n
+            self.Pass = p
+
+        def info():
+            print('Its funcion will delete super-user')
+
+        def params(name, password, confirm=False, save=True, why='No one can know that\n'):
+            if confirm: #are you confirm deleting user?
+                if save: #do you want to save data?
+                    try:
+                        with open('root.json', mode='r') as f:
+                            data = json.load(f)
+                            rName = data['user']
+                            rPass = data['pass']
+                        if name != rName: #it's a super-user. another rules. only hardcore. unauthorized access?
+                            print('Username "{}" is not defined'.format(name))
+                        elif password != rPass: #it's a super-user. another rules. only hardcore. unauthorized access?
+                            print("Password isn't correct")
+                        else: #if your info is correctly, run function
+                            shutil.copy(r'root.json', r'root_SAVED.json') #saving file
+                            os.remove(r'root.json') #deleting file
+                            print('User {} succesfully deleted'.format(name))
+                            with open('why.txt', mode='a') as f:
+                                f.write('{}'.format(why))
+                    except Exception as er:
+                        print("You don't have super-user", er)
+                else: #if you don't want to save
+                    try:
+                        with open('root.json', mode='r') as f:
+                            data = json.load(f)
+                            rName = data['user']
+                            rPass = data['pass']
+                        if name != rName: #it's a super-user. another rules. only hardcore. unauthorized access?
+                            print('Username "{}" is not matched'.format(name))
+                        elif password != rPass: #it's a super-user. another rules. only hardcore. unauthorized access?
+                            print("Password isn't correct")
+                        else: #if your info is correctly, run function
+                            os.remove(r'root.json') #deleting file
+                            #where is saving???
+                            print('User {} succesfully deleted'.format(name))
+                            with open('why.txt', mode='a') as f:
+                                f.write('{}'.format(why))
+                    except Exception as er:
+                        print("You don't have super-user", er)
+            else: #if you don't confirm - command isn't running
+                pass
+
+    class database: #delete database
+        def __init__(self, n):
+            self.Name = n
+
+        def info():
+            print('Wanna delete database? Just call this function')
+
+        def params(name, confirm=False):
             connection = pymysql.connect(host=host,
                                          user=db_user,
                                          password=db_pass,
                                          charset='utf8mb4',
                                          cursorclass=pymysql.cursors.DictCursor
-                                         ) #connection with your host 
-            try: #trying to add new database
-                with connection.cursor() as cursor:
-                    sql = 'CREATE DATABASE `%s`;' #sql-code
-                    cursor.execute(sql, ('{}'.format(name))) #sql-code running
-                    connection.commit() #saving changes
-                with open('connection_log.txt', mode='a') as f: #info fot connection_log.txt If you have a
-                                                                #problem, you should send me that file too
-                    f.write('[{}]: SQL: {}\n'.format(now, sql))
-            except Exception as er:
-                print('Something is wrong: ', er)
-                with open('connection_log.txt', mode='a') as f:
-                    f.write('[{}]: SQL: {}\n'.format(now, sql))
-            finally:
-                connection.close() #if we don't close connection, it can doing something bad
-        db_create_button = Button(window, text='Create database', command=create_db)
-        db_create_button.place(x=0, y=30)
-    window = Toplevel()
-    window.title('UsefulDB GUI: create')
-    window.geometry('300x400')
-    create_user_button = Button(window, text='Create user', command=create_user)
-    create_user_button.pack()
-    create_table_button = Button(window, text='Create table', command=create_table)
-    create_table_button.pack()
-    create_database_button = Button(window, text='Create database', command=create_database)
-    create_database_button.pack()
+                                         ) #connection with your host
+            now = datetime.datetime.now() #time right now
+            if confirm: #are you confirm your choise? do you really want to delete database?
+                try:
+                    with connection.cursor() as cursor:
+                        sql = 'DROP DATABASE `%s`;' #sql-code
+                        cursor.execute(sql, ('{}'.format(name)))
+                        with open('connection_log.txt', mode='a') as f:
+                            f.write('[{}]: SQL: {}\n'.format(now, sql))
+                        connection.commit() #saving changes
+                        print('Database {} succesfully deleted'.format(name))
+                except Exception as er:
+                    print('Something is wrong: ', er)
+                    with open('connection_log.txt', mode='a') as f:
+                        f.write('[{}]: SQL: {} Error: {}\n'.format(now, sql, er))
+                    raise er
+                finally:
+                    connection.close() #closing connection for safely exit
+            else:
+                pass
 
-def delete():
-    window = Toplevel()
-    window.title('UsefulDB GUI: delete')
-    window.geometry('300x400')
-    def delete_user():
-        window = Toplevel()
-        window.title('UsefulDB GUI: delete user')
-        name_text = Label(window, text='Username:')
-        name_text.place(x=0, y=0)
-        pass_text = Label(window, text='Password:')
-        pass_text.place(x=0, y=30)
-        name_entry = Entry(window)
-        name_entry.place(x=100, y=0)
-        pass_entry = Entry(window)
-        pass_entry.place(x=100, y=30)
-        def confirm_func():
-            try:
-                name = name_entry.get()
-                password = pass_entry.get()
-                with open('root.json', mode='r') as f:
-                    data = json.load(f)
-                    rName = data['user']
-                    rPass = data['pass']
-                if name != rName: #it's a super-user. another rules. only hardcore. unauthorized access?
-                    print('Username "{}" is not matched'.format(name))
-                elif password != rPass: #it's a super-user. another rules. only hardcore. unauthorized access?
-                    print("Password isn't correct")
-                else: #if your info is correctly, run function
-                    shutil.copy(r'root.json', r'root_SAVED.json') #saving file
-                    os.remove(r'root.json') #deleting file
-                    print('User {} succesfully deleted'.format(name))
-            except:
-                print("You don't have super-user")
-        confirm_delete = Button(window, text='Delete', command=confirm_func)
-        confirm_delete.place(x=0, y=60)
-    def delete_table():
-        window = Toplevel()
-        window.title('UsefulDB GUI: delete table')
-        window.geometry('300x400')
-        name_text = Label(window, text='Table name:')
-        name_text.place(x=0, y=0)
-        name_entry = Entry(window)
-        name_entry.place(x=100, y=0)
-        name = name_entry.get()
-        def confirm_func():
-            name = name_entry.get()
-            now = datetime.datetime.now()
-            with open('config.json', mode='r') as f:
-                data = json.load(f)
-                host = data['host']
-                db_user = data['user']
-                db_pass = data['password']
-            try: #are you have correct info of database name?
-                with open('host.json', mode='r') as f:
-                    data = json.load(f)
-                    db = data['database']
-            except Exception as error: #if not
-                answer = input('Insert the database name: ')
-                with open('host.json', mode='w') as f:
-                    dict = {}
-                    dict['database'] = answer
-                    json.dump(dict, f)
-                raise error
+    class table: #delete table
+        def __init__(self, n):
+            self.Name = n
+
+        def info():
+            print('Wanna delete table? Just call this function')
+
+        def params(name, confirm=False):
+            now = datetime.datetime.now() #time right now
             connection = pymysql.connect(host=host,
                                          user=db_user,
                                          password=db_pass,
@@ -333,95 +347,20 @@ def delete():
                                          charset='utf8mb4',
                                          cursorclass=pymysql.cursors.DictCursor
                                          ) #connection with your host
-            try:
-                with connection.cursor() as cursor:
-                    sql = 'DROP TABLE `%s`;' #sql-code
-                    cursor.execute(sql, ('{}'.format(name)))
-                    connection.commit() #saving changes
-                    print('Table {} succesfully deleted'.format(name))
-            except Exception as er:
-                print('Something  is wrong: ', er)
-                with open('connection_log.txt', mode='a') as f:
-                    f.write('[{}]: SQL: DROP TABLE `%s`; Error: {}\n'.format(now, er))
-            finally:
-                connection.close()
-        confirm_button = Button(window, text='Delete table {}'.format(name), command=confirm_func)
-        confirm_button.place(x=0, y=30)
-    def delete_database():
-        window = Toplevel()
-        window.title('UsefulDB GUI: delete database')
-        window.geometry('300x400')
-        name_text = Label(window, text='Database name:')
-        name_text.place(x=0, y=0)
-        name_entry = Entry(window)
-        name_entry.place(x=100, y=0)
-        name = name_entry.get()
-        def confirm_func():
-            name = name_entry.get()
-            with open('config.json', mode='r') as f:
-                data = json.load(f)
-                host = data['host']
-                db_user = data['user']
-                db_pass = data['password']
-            connection = pymysql.connect(host=host,
-                                         user=db_user,
-                                         password=db_pass,
-                                         charset='utf8mb4',
-                                         cursorclass=pymysql.cursors.DictCursor
-                                         ) #connection with your host
-            now = datetime.datetime.now() #time right now
-            try:
-                with connection.cursor() as cursor:
-                    sql = 'DROP DATABASE `%s`;' #sql-code
-                    cursor.execute(sql, ('{}'.format(name)))
+            if confirm: #are you confirm your choise?
+                try:
+                    with connection.cursor() as cursor:
+                        sql = 'DROP TABLE `%s`;' #sql-code
+                        cursor.execute(sql, ('{}'.format(name)))
+                        with open('connection_log.txt', mode='a') as f:
+                            f.write('[{}]: SQL {}'.format(now, sql))
+                        connection.commit() #saving changes
+                        print('Table {} succesfully deleted'.format(name))
+                except Exception as er:
+                    print('Something  is wrong: ', er)
                     with open('connection_log.txt', mode='a') as f:
-                        f.write('[{}]: SQL: {}\n'.format(now, sql))
-                    connection.commit() #saving changes
-                    print('Database {} succesfully deleted'.format(name))
-            except Exception as er:
-                print('Something is wrong: ', er)
-                with open('connection_log.txt', mode='a') as f:
-                    f.write('[{}]: SQL: {} Error: {}\n'.format(now, sql, er))
-                raise er
-            finally:
-                connection.close() #closing connection for safely exit
-        confirm_button = Button(window, text='Delete database {}'.format(name), command=confirm_func)
-        confirm_button.place(x=0, y=30)
-    delete_user_button = Button(window, text='Delete user', command=delete_user)
-    delete_user_button.pack()
-    delete_table_button = Button(window, text='Delete table', command=delete_table)
-    delete_table_button.pack()
-    delete_database_button = Button(window, text='Delete database', command=delete_database)
-    delete_database_button.pack()
-def change_edit():
-    window = Toplevel()
-    window.title('UsefulDB GUI: change(edit)')
-    window.geometry('300x400')
-    warning = Label(window, text='Warning!\nThis feature is not working.\nMaybe coming soon I will write it')
-    warning.pack()
-
-def info():
-    window = Toplevel()
-    window.title('UsefulDB GUI: info')
-    window.geometry('300x400')
-    pyversion = platform.python_version()
-    opersyst = platform.system()
-    information = Label(window, text='Info:\nUsefulDB {}\nPython {}\n OS {}'.format(VERSION, pyversion, opersyst))
-    information.pack()
-
-create_button = Button(root, text='Create', command=create)
-create_button.pack()
-delete_button = Button(root, text='Delete', command=delete)
-delete_button.pack()
-change_edit_button = Button(root, text='Change(edit)', command=change_edit)
-change_edit_button.pack()
-info_button = Button(root, text='Information', command=info)
-info_button.pack()
-'''
-btn_calc.bind('<Button-1>', lambda event: sinus(entry_w.get(),
-	                                            entry_phi.get(),
-												entry_A.get(),
-												entry_dy.get()))
-'''
-
-root.mainloop()
+                        f.write('[{}]: SQL: DROP TABLE `%s`; Error: {}\n'.format(now, er))
+                finally:
+                    connection.close()
+            else:
+                pass
