@@ -1,3 +1,4 @@
+# DEVELOPING've STOPPED FOR A WHILE
 # UsefulDB
 ![Travis CI](https://api.travis-ci.org/ZerZru/UsefulDB.svg?branch=master) ![Github downloads](https://img.shields.io/github/downloads/ZerZru/UsefulDB/total.svg) ![PyPI - Version](https://img.shields.io/pypi/v/usefuldb.svg) ![PyPI - Format](https://img.shields.io/pypi/format/UsefulDB.svg) <br> <br>
 ![project_logo](https://raw.githubusercontent.com/ZerZru/UsefulDB/master/images/logo-readme.jpg)
