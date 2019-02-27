@@ -178,7 +178,7 @@ Version 1.0.0: <br>
 <a name="contact"></a>
 # Contact
 
-© 2018; Elisey Sharov
+© 2019; Elisey Sharov
 
 elisey.sharow@yandex.ru - main e-mail <br>
 playofstiverz@gmail.com - second e-mail <br>
